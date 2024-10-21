@@ -22,14 +22,14 @@ def conversion(input_files):
             dest_path = destination_path + x + '/'
             txt_files = [f for f in os.listdir(dest_path) if f.endswith('.ppm')]
             # print(txt_files)
-            counter = 0
+            #counter = 0
             for txt_file in txt_files:
                 image = Image.open(dest_path + txt_file)
                 image_input_path = image_save_path + x + '/'
                 if not os.path.isdir(image_input_path):
                     os.makedirs(image_input_path)
-                image.save(image_input_path + str(counter) + ".jpg")
-                counter += 1
+                image.save(image_input_path + str(txt_file) + ".jpg")
+                #counter += 1
     except:
         return "Exception Occured"
 
