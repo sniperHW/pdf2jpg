@@ -5,18 +5,35 @@ from PIL import Image
 cwd = os.getcwd()
 input_path = cwd +"/PDF/"
 destination_path = cwd +"/PPM/"
-image_save_path = cwd +"/PPM 2 JPG/"
+image_save_path = cwd +"/JPG/"
+
+
+def remove_suffix(s, suffix):
+    # 如果字符串以指定后缀结尾，则去除它
+    if s.endswith(suffix):
+        return s[:-len(suffix)]
+    return s  # 否则返回原字符串
+ 
+# 示例使用
+#original_string = "example.com"
+#suffix_to_remove = ".com"
+#new_string = remove_suffix(original_string, suffix_to_remove)
+#print(new_string)  # 输出: example
 
 
 def conversion(input_files):
     # conversion method
     try:
         for x in input_files:
+            print(x)
             dest_file = input_path + x
             dest_path = destination_path + x + '/'
             if not os.path.isdir(dest_path):
                 os.makedirs(dest_path)
             images_from_path = convert_from_path(dest_file, output_folder=dest_path)
+            for x in images_from_path:
+                x.close()
+
         # for loop for input files
         for x in input_files:
             dest_path = destination_path + x + '/'
@@ -28,9 +45,16 @@ def conversion(input_files):
                 image_input_path = image_save_path + x + '/'
                 if not os.path.isdir(image_input_path):
                     os.makedirs(image_input_path)
-                image.save(image_input_path + str(txt_file) + ".jpg")
+                #print(x)
+                x = remove_suffix(x, ".pdf")
+                txt_file = remove_suffix(txt_file, ".ppm")
+                filename = image_input_path + x + str(txt_file) + ".jpg"
+                #print(filename)
+                image.save(filename)
+                image.close()
                 #counter += 1
-    except:
+    except err:
+        print(err)
         return "Exception Occured"
 
     else:
