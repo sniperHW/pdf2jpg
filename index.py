@@ -36,17 +36,18 @@ def conversion(input_files):
 
         # for loop for input files
         for x in input_files:
+            #
             dest_path = destination_path + x + '/'
             txt_files = [f for f in os.listdir(dest_path) if f.endswith('.ppm')]
             # print(txt_files)
             #counter = 0
+            x = remove_suffix(x, ".pdf")
             for txt_file in txt_files:
                 image = Image.open(dest_path + txt_file)
                 image_input_path = image_save_path + x + '/'
                 if not os.path.isdir(image_input_path):
                     os.makedirs(image_input_path)
                 #print(x)
-                x = remove_suffix(x, ".pdf")
                 txt_file = remove_suffix(txt_file, ".ppm")
                 filename = image_input_path + x + str(txt_file) + ".jpg"
                 #print(filename)
