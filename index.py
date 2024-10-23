@@ -9,16 +9,10 @@ image_save_path = cwd +"/JPG/"
 
 
 def remove_suffix(s, suffix):
-    # 如果字符串以指定后缀结尾，则去除它
     if s.endswith(suffix):
         return s[:-len(suffix)]
-    return s  # 否则返回原字符串
- 
-# 示例使用
-#original_string = "example.com"
-#suffix_to_remove = ".com"
-#new_string = remove_suffix(original_string, suffix_to_remove)
-#print(new_string)  # 输出: example
+    return s
+
 
 
 def conversion(input_files):
@@ -47,9 +41,9 @@ def conversion(input_files):
                 image_input_path = image_save_path + x + '/'
                 if not os.path.isdir(image_input_path):
                     os.makedirs(image_input_path)
-                #print(x)
-                txt_file = remove_suffix(txt_file, ".ppm")
-                filename = image_input_path + x + str(txt_file) + ".jpg"
+                t = txt_file.split("-")
+                txt_file = remove_suffix(t[len(t)-1], ".ppm")
+                filename = image_input_path + x + "_" + str(txt_file) + ".jpg"
                 #print(filename)
                 image.save(filename)
                 image.close()
